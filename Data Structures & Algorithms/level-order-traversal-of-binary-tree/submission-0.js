@@ -1,0 +1,44 @@
+/**
+ * Definition for a binary tree node.
+ * class TreeNode {
+ *     constructor(val = 0, left = null, right = null) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+
+class Solution {
+    /**
+     * @param {TreeNode} root
+     * @return {number[][]}
+     */
+    levelOrder(root) {
+        let queue = [];
+        let res = [];
+
+        if (root) {
+            queue.push(root);
+        }
+
+        let level = 0;
+        while (queue.length > 0) {
+            let queueLength = queue.length; // snapshot of queueLength at this time (level) so it isn't constantly changing due to for loop code
+            let subarray = [];
+            for (let i = 0; i < queueLength; i++) {
+                let curr = queue.shift();
+                subarray.push(curr.val)
+                if (curr.left) {
+                    queue.push(curr.left)
+                }
+                if (curr.right) {
+                    queue.push(curr.right)
+                }
+            }
+            res.push(subarray)
+            level+=1;
+        }
+        return res;
+    }
+}
